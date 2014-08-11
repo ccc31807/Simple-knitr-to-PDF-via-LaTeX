@@ -1,0 +1,21 @@
+\documentclass{article}
+
+\title{My First Rnw File}
+\author{Charles Carter}
+\date{}
+
+\begin{document}
+
+\maketitle{}
+
+\paragraph{}This is my first .Rnw file, from \textsf{R} to PDF through \LaTeXe{}.
+
+<<my-label, eval=TRUE, dev='png', fig.width = 3, fig.height = 3>>=
+set.seed(1213)  # for reproducibility
+x = cumsum(rnorm(100))
+mean(x)  # mean of x
+plot(x, type = 'l')  # Brownian motion
+@
+
+\end{document}
+
