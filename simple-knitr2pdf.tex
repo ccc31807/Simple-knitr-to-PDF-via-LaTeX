@@ -5,7 +5,7 @@
 \usepackage{listings}
 \usepackage[final]{graphicx}
 
-\title{Simple knitr to PDF via \LaTeX2e{}}
+\title{Simple knitr to PDF via \LaTeX2e{} Tutorial}
 \author{Charles Carter\thanks{cccarter@troy.edu}}
 \date{August 11, 2014}
 
@@ -31,18 +31,18 @@
 
 \section{Getting \texttt{pdflatex.exe}}
 
-\paragraph{}This tutorial uses the implementation of \texttt{pdflatex} from MiKTeX, \url{http://miktex.org/}. Download and install MiKTeX. You will find the \texttt{pdflatex.exe} executable in a directory created by the installation process. On the author's machine it is located at \texttt{C:/Program Files (x86)/MiKTeX 2.9/miktex/bin}. See figure \ref{path2miktex}You can edit your path or create an environmental variable to the executable to avoid having to type the full path to the executable with each use.
+\paragraph{}This tutorial uses the implementation of \texttt{pdflatex} from MiKTeX, \url{http://miktex.org/}. Download and install MiKTeX. You will find the \texttt{pdflatex.exe} executable in a directory created by the installation process. On the author's machine it is located at \texttt{C:/Program Files (x86)/MiKTeX 2.9/miktex/bin}. See figure \ref{path2miktex}. You can edit your path or create an environmental variable to the executable to avoid having to type the full path to the executable with each use.
 
-\paragraph{}This tutorial includes a \texttt{.tex} file named \texttt{simple.tex}, see listing \ref{simple}. Run \texttt{pdflatex} using this file as input, see figure \ref{simple}. The tutorial also includes the source of this PDF document (named \texttt{simple-knitr2pdf.tex}), which you can also run. Make sure that the current directory includes the image files. Running this source may load several packages unless you have already loaded them.
+\paragraph{}This tutorial includes a \texttt{.tex} file named \texttt{simple.tex}, see listing \ref{simple-tex}. Run \texttt{pdflatex} using this file as input, see figure \ref{simple}. The tutorial also includes the source of this PDF document (named \texttt{simple-knitr2pdf.tex}), which you can also run. Make sure that the current directory includes the image files. Running this source may load several packages unless you have already loaded them.
 
-\begin{lstlisting}[caption={simple.tex}, label=simple]
+\begin{lstlisting}[caption={simple.tex}, label=simple-tex]
 \documentclass{article}
 \title{My First LaTeX File}
 \author{My Name}
 \date{}
 \begin{document}
 \maketitle{}
-\paragraph{}This is my first .tex file, from \texttt{pdflatex.exe} to PDF using \LaTeXe{}.
+\paragraph{}This is my first .tex file, from \texttt{pdflatex.exe} to PDF using \LaTeX2e{}.
 \end{document}
 \end{lstlisting}
 
@@ -63,33 +63,35 @@
 \paragraph{}Invoke the \textsf{R} GUI, install the \texttt{knitr} package if you have not already done so, and load the \texttt{knitr} library. See listing \ref{load}.
 
 \begin{lstlisting}[caption={Loading \texttt{knitr}}, label=load]
-install.packages{knitr}
-library{knitr}
+install.packages(knitr)
+library(knitr)
 \end{lstlisting}
 
 \section{Creating PDF from .Rnw files}
 
-\paragraph{}Creating a PDF document with \texttt{knitr} requires three steps: first, create a \texttt{.Rnw} source file, second, knit the source file with \texttt{knit()}, and third, compile the resulting \texttt{.tex} file with \texttt{pdflatex}. This tutorial includes a simple source file (see listing \ref{first}) named \texttt{first.Rnw}. The \textsf{R} code shamelessly cribbed from Yihui Xie at \url{http://yihui.name/knitr/}.
+\paragraph{}Creating a PDF document with \texttt{knitr} using \LaTeX2e{} requires three steps: first, create a \texttt{.Rnw} source file, second, knit the source file with \texttt{knit()}, and third, compile the resulting \texttt{.tex} file with \texttt{pdflatex}. This tutorial includes a simple source file (see listing \ref{first}) named \texttt{first.Rnw}. The \textsf{R} code shamelessly cribbed from Yihui Xie at \url{http://yihui.name/knitr/}.
 
 \begin{lstlisting}[caption={First Rnw file}, label=first]
+
 \documentclass{article}
 \title{My First Rnw File}
-\author{My Name}
+\author{Charles Carter}
 \date{}
 \begin{document}
 \maketitle{}
-\paragraph{}This is my first .Rnw file, from \textsf{R} to PDF through \LaTeXe{}. 
+\paragraph{}This is my first .Rnw file, from \textsf{R} to PDF through \LaTeXe{}.
 
-<<my-label, eval=TRUE, dev='png'>>=
+<<my-label, eval=TRUE, dev='png', fig.width = 3, fig.height = 3>>=
 set.seed(1213)  # for reproducibility
 x = cumsum(rnorm(100))
 mean(x)  # mean of x
 plot(x, type = 'l')  # Brownian motion
 @
 
+\end{document}
 \end{lstlisting}
 
-\paragraph{}In the \textsf{R} GUI, knit the \texttt{first.Rnw} source file. See figure \ref{knitting}. This will create a file named \texttt{first.tex}. Then, run \texttt{pdflatex} against this file. This will produce a PDF document names \texttt{first.pdf} that looks like figure \ref{PDF}.
+\paragraph{}In the \textsf{R} GUI, knit the \texttt{first.Rnw} source file. See figure \ref{knitting}. This will create a file named \texttt{first.tex}. Then, run \texttt{pdflatex} against this file. This will produce a PDF document named \texttt{first.pdf} that looks like figure \ref{PDF}.
 
 \begin{figure}
 \caption{Knitting}
